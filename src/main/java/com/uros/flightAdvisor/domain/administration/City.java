@@ -1,10 +1,10 @@
 package com.uros.flightAdvisor.domain.administration;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,14 +30,18 @@ public class City {
 	@Size(min = 2, max = 30)
 	private String name;
 
+	@NotNull
 	private String description;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Country country;
 
 	@OneToMany(mappedBy = "city")
-	private Set<Comment> comments = new HashSet<>();
+	private List<Comment> comments = new ArrayList<>();
+
+	@NotNull
+	private boolean deleted = false;
 
 	public Long getId() {
 		return id;
@@ -71,16 +75,25 @@ public class City {
 		this.country = country;
 	}
 
-	public Set<Comment> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	@Override
 	public String toString() {
-		return "City [id=" + id + ", name=" + name + ", description=" + description + ", country=" + country + "]";
+		return "City [id=" + id + ", name=" + name + ", description=" + description + ", country=" + country
+				+ ", deleted=" + deleted + "]";
 	}
 }

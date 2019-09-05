@@ -3,7 +3,6 @@ package com.uros.flightAdvisor.domain.administration;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +11,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Comment entity.
  * 
@@ -19,6 +23,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
+@Where(clause = "deleted = 'false'")
 public class Comment {
 
 	@Id
@@ -32,8 +37,12 @@ public class Comment {
 
 	private LocalDateTime modifiedTime;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne
 	private City city;
+
+	@NotNull
+	private boolean deleted = false;
 
 	@PrePersist
 	protected void onCreate() {
@@ -85,9 +94,17 @@ public class Comment {
 		this.city = city;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + ", creationTime=" + creationTime + ", modifiedTime="
-				+ modifiedTime + ", city=" + city + "]";
+				+ modifiedTime + ", city=" + city + ", deleted=" + deleted + "]";
 	}
 }
