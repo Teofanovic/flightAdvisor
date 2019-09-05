@@ -252,7 +252,8 @@ INSERT INTO city (deleted, country_id, name, description) VALUES
                 (false, (select id from country where code = 'RS'), 'Nis', 'Description 3'),
                 (false, (select id from country where code = 'RS'), 'Kragujevac', 'Description 4'),
                 (false, (select id from country where code = 'RS'), 'Krusevac', 'Description 5'),
-                (false, (select id from country where code = 'RS'), 'Kraljevo', 'Description 6');
+                (false, (select id from country where code = 'RS'), 'Kraljevo', 'Description 6'),
+                (false, (select id from country where code = 'PG'), 'Goroka', 'Description');
                 
 INSERT INTO comment (deleted, city_id, content, creation_time) VALUES
                 (false, 1, 'Comment 1', '2019-09-09 18:47:52'),

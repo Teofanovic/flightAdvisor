@@ -78,4 +78,8 @@ public class CityService {
 	public City save(City city) {
 		return cityRepository.save(city);
 	}
+
+	public City findByNameIgnoreCase(String name) {
+		return cityRepository.findByNameIgnoreCase(name);
+	}
 }

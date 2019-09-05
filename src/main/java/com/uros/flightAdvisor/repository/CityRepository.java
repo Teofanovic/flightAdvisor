@@ -11,4 +11,6 @@ import com.uros.flightAdvisor.domain.administration.City;
 public interface CityRepository extends JpaRepository<City, Long> {
 
 	List<City> findByNameContainingIgnoreCase(String name);
+	
+	City findByNameIgnoreCase(String name);
 }
